@@ -1,0 +1,15 @@
+﻿<wpf:ResourceDictionary xml:space="preserve" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:s="clr-namespace:System;assembly=mscorlib" xmlns:ss="urn:shemas-jetbrains-com:settings-storage-xaml" xmlns:wpf="http://schemas.microsoft.com/winfx/2006/xaml/presentation">
+	<s:Int64 x:Key="/Default/Environment/SearchAndNavigation/DefaultOccurrencesGroupingIndex/@EntryValue">0</s:Int64>
+	<s:Boolean x:Key="/Default/RunConfigs/Config/=0151162C3EDC8F46B735E390B0E4A4DB/@KeyIndexDefined">True</s:Boolean>
+	<s:String x:Key="/Default/RunConfigs/Config/=0151162C3EDC8F46B735E390B0E4A4DB/Name/@EntryValue">GoogleTest.Tests</s:String>
+	<s:String x:Key="/Default/RunConfigs/Config/=0151162C3EDC8F46B735E390B0E4A4DB/ProjectGuid/@EntryValue">9EE319299F653D4C91685D8F654C3313</s:String>
+	<s:String x:Key="/Default/RunConfigs/Config/=0151162C3EDC8F46B735E390B0E4A4DB/Type/@EntryValue">project</s:String>
+	<s:Boolean x:Key="/Default/RunConfigs/Config/=32B20522BC68D74F9D0AF3CFAD295F44/@KeyIndexDefined">True</s:Boolean>
+	<s:String x:Key="/Default/RunConfigs/Config/=32B20522BC68D74F9D0AF3CFAD295F44/Name/@EntryValue">GoogleTest.Tests</s:String>
+	<s:String x:Key="/Default/RunConfigs/Config/=32B20522BC68D74F9D0AF3CFAD295F44/ProjectGuid/@EntryValue">9EE319299F653D4C91685D8F654C3313</s:String>
+	<s:String x:Key="/Default/RunConfigs/Config/=32B20522BC68D74F9D0AF3CFAD295F44/Type/@EntryValue">project</s:String>
+	<s:Boolean x:Key="/Default/RunConfigs/Config/=937F5E1AB609BE4F89C3776220F2215A/@KeyIndexDefined">True</s:Boolean>
+	<s:String x:Key="/Default/RunConfigs/Config/=937F5E1AB609BE4F89C3776220F2215A/Type/@EntryValue">project</s:String>
+	<s:String x:Key="/Default/RunConfigs/Config/=937F5E1AB609BE4F89C3776220F2215A/Name/@EntryValue">GoogleTest</s:String>
+	<s:String x:Key="/Default/RunConfigs/Config/=937F5E1AB609BE4F89C3776220F2215A/ProjectGuid/@EntryValue">83B8DD0DF82EBC48A62A00076F66012D</s:String>
+	<s:String x:Key="/Default/RunConfigs/Active/@EntryValue">0151162C3EDC8F46B735E390B0E4A4DB</s:String></wpf:ResourceDictionary>
