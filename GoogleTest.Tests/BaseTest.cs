@@ -10,7 +10,7 @@ namespace GoogleTest.Tests
         [SetUp]
         public void SetUp()
         {
-            var browser = Driver.GetInstance();
+            var browser = WebDriverSingleton.Instance;
             browser.Manage().Window.Maximize();
             browser.Navigate().GoToUrl(Configuration.GetBaseUrl());
         }
@@ -18,7 +18,7 @@ namespace GoogleTest.Tests
         [TearDown]
         public void TearDown()
         {
-            Driver.GetInstance().Quit();
+            WebDriverSingleton.Instance.Quit();
         }
     }
 }

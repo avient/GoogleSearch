@@ -14,12 +14,20 @@ namespace GoogleTest.Web.Forms
 
         private TextBox TbxSearchField => new TextBox(By.Id("lst-ib"), "Search field");
         private Label LblSearchResultsCount => new Label(By.Id("resultStats"), "Search results count");
-        public List<BaseElement> SearchResultsOnPage => new Label(By.ClassName("g"), "Search results list")
+        private List<BaseElement> SearchResultsOnPage => new Label(By.ClassName("g"), "Search results list")
             .GetAllElements();
 
         public GooglePage()
             : base(By.XPath(FormLocator), FormName)
         {
+        }
+
+        public List<string> GetAllResultsTextList()
+        {
+            var searchResultText =
+                from result in SearchResultsOnPage
+                select result.GetText();
+            return searchResultText.ToList();
         }
 
         public void SearchFor(string text)
