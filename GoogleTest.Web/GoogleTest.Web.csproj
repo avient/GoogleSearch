@@ -44,7 +44,8 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Driver.cs" />
+    <Compile Include="WebDriverSingleton.cs" />
+    <Compile Include="WebDriverExtensions.cs" />
     <Compile Include="Elements\BaseElement.cs" />
     <Compile Include="Elements\Button.cs" />
     <Compile Include="Elements\Label.cs" />

@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Linq;
 using GoogleTest.Web.Forms;
 using NUnit.Framework;
 
@@ -22,14 +21,11 @@ namespace GoogleTest.Tests
                 $"Search count '{actualSearchResultsCount}' are less than '{SearchResultsCount}'");
 
             Console.WriteLine($"Asserting results contain :: '{WordToSearch}'");
-            var searchResultText=
-            from result in gp.SearchResultsOnPage
-            select result.GetText();
             var i = 1;
 
             Assert.Multiple(() =>
             {
-                foreach (var res in searchResultText)
+                foreach (var res in gp.GetAllResultsTextList())
                 {
                     Assert.AreEqual(true, res.ToLower().Contains(WordToSearch.ToLower()),
                         $"Search result '{i}' doesn't contain '{WordToSearch}' word");
