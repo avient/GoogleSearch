@@ -7,28 +7,40 @@ namespace GoogleTest.Web
 {
     public class WebDriverSingleton
     {
-        private static IWebDriver driver;
+        private static IWebDriver _driver;
+        private static WebDriverSingleton _instance;
 
         private WebDriverSingleton()
         {
             switch (Configuration.GetBrowser())
             {
                 case "firefox":
-                    driver = new FirefoxDriver();
+                    _driver = new FirefoxDriver();
                     break;
                 default:
-                    driver = new ChromeDriver();
+                    _driver = new ChromeDriver();
                     break;
             }
         }
 
-        public static IWebDriver Instance
+        public IWebDriver GetDriver()
+        {
+            return _driver;
+        }
+
+        public void Reset()
+        {
+            _driver.Quit();
+            _instance = null;
+        }
+
+        public static WebDriverSingleton Instance
         {
             get
             {
-                if (driver != null) return driver;
-                new WebDriverSingleton();
-                return driver;
+                if (_instance != null) return _instance;
+                _instance = new WebDriverSingleton();
+                return _instance;
             }
         }
     }
