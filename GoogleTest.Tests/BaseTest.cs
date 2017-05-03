@@ -10,15 +10,15 @@ namespace GoogleTest.Tests
         [SetUp]
         public void SetUp()
         {
-            var browser = WebDriverSingleton.Instance;
-            browser.Manage().Window.Maximize();
-            browser.Navigate().GoToUrl(Configuration.GetBaseUrl());
+            var driver = WebDriverSingleton.Instance.GetDriver();
+            driver.Manage().Window.Maximize();
+            driver.Navigate().GoToUrl(Configuration.GetBaseUrl());
         }
 
         [TearDown]
         public void TearDown()
         {
-            WebDriverSingleton.Instance.Quit();
+            WebDriverSingleton.Instance.Reset();
         }
     }
 }
