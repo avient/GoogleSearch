@@ -11,15 +11,17 @@ namespace GoogleTest.Web.Forms
     {
         private const string FormLocator = "//*[@id='main']";
         private const string FormName = "Google page";
+        private readonly IWebDriver _driver;
 
-        private TextBox TbxSearchField => new TextBox(By.Id("lst-ib"), "Search field");
-        private Label LblSearchResultsCount => new Label(By.Id("resultStats"), "Search results count");
-        private List<BaseElement> SearchResultsOnPage => new Label(By.ClassName("g"), "Search results list")
+        private TextBox TbxSearchField => new TextBox(By.Id("lst-ib"), "Search field", _driver);
+        private Label LblSearchResultsCount => new Label(By.Id("resultStats"), "Search results count", _driver);
+        private List<BaseElement> SearchResultsOnPage => new Label(By.ClassName("g"), "Search results list", _driver)
             .GetAllElements();
 
-        public GooglePage()
-            : base(By.XPath(FormLocator), FormName)
+        public GooglePage(IWebDriver driver)
+            : base(By.XPath(FormLocator), FormName, driver)
         {
+            _driver = driver;
         }
 
         public List<string> GetAllResultsTextList()

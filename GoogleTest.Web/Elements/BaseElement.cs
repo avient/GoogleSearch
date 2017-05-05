@@ -12,23 +12,26 @@ namespace GoogleTest.Web.Elements
         private readonly string _name;
         private readonly By _locator;
         private IWebElement _element;
+        private readonly IWebDriver _driver;
 
-        protected BaseElement(By locator, string name)
+
+        protected BaseElement(By locator, string name, IWebDriver driver)
         {
-            this._name = name;
-            this._locator = locator;
+            _name = name;
+            _locator = locator;
+            _driver = driver;
         }
 
         protected IWebElement GetElement()
         {
             WaitForElementPresent();
-            return _element ?? (_element = WebDriverSingleton.Instance.FindElement(_locator));
+            return _element ?? (_element = _driver.FindElement(_locator));
         }
 
         public List<BaseElement> GetAllElements()
         {
-            var allElements = WebDriverSingleton.Instance.FindElements(_locator);
-            return allElements.Select((t, i) => new BaseElement(_locator, _name + i) {_element = t}).ToList();
+            var allElements = _driver.FindElements(_locator);
+            return allElements.Select((t, i) => new BaseElement(_locator, _name + i, _driver) {_element = t}).ToList();
         }
 
         protected string GetName()
@@ -52,7 +55,7 @@ namespace GoogleTest.Web.Elements
         {
             WaitForElementPresent();
             GetElement().SendKeys(key);
-            WebDriverSingleton.Instance.WaitForPageToLoad();
+            _driver.WaitForPageToLoad();
         }
 
         public string GetText()
@@ -63,13 +66,13 @@ namespace GoogleTest.Web.Elements
 
         protected void WaitForElementPresent()
         {
-            var wait = new WebDriverWait(WebDriverSingleton.Instance,
+            var wait = new WebDriverWait(_driver,
                 TimeSpan.FromMilliseconds(Convert.ToDouble(Configuration.GetTimeout())));
             try
             {
                 wait.Until(waiting =>
                 {
-                    var webElements = WebDriverSingleton.Instance.FindElements(_locator);
+                    var webElements = _driver.FindElements(_locator);
                     return webElements.Count != 0;
                 });
             }
@@ -79,15 +82,15 @@ namespace GoogleTest.Web.Elements
             }
         }
 
-        public static void WaitForElementPresent(By locator, string name)
+        public static void WaitForElementPresent(By locator, string name, IWebDriver driver)
         {
-            var wait = new WebDriverWait(WebDriverSingleton.Instance,
+            var wait = new WebDriverWait(driver,
                 TimeSpan.FromMilliseconds(Convert.ToDouble(Configuration.GetTimeout())));
             try
             {
                 wait.Until(waiting =>
                 {
-                    var webElements = WebDriverSingleton.Instance.FindElements(locator);
+                    var webElements = driver.FindElements(locator);
                     return webElements.Count != 0;
                 });
             }

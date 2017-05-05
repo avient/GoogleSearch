@@ -5,7 +5,7 @@ namespace GoogleTest.Web.Elements
 {
     public class TextBox : BaseElement
     {
-        public TextBox(By locator, string name) : base(locator, name)
+        public TextBox(By locator, string name, IWebDriver driver) : base(locator, name, driver)
         {
         }
 

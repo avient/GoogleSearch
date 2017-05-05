@@ -1,18 +1,24 @@
 ﻿using System;
 using GoogleTest.Web.Forms;
 using NUnit.Framework;
+using OpenQA.Selenium;
 
 namespace GoogleTest.Tests
 {
     public class GoogleSearchTest : BaseTest
     {
+        private static IWebDriver _driver;
         private const string WordToSearch = "microsoft";
         private const int SearchResultsCount = 1000000000;
+
+        public GoogleSearchTest() : base(out _driver)
+        {
+        }
 
         [Test]
         public void RunTest()
         {
-            var gp = new GooglePage();
+            var gp = new GooglePage(_driver);
             gp.SearchFor(WordToSearch);
 
             var actualSearchResultsCount = gp.GetSearchResultsCount();
@@ -32,7 +38,6 @@ namespace GoogleTest.Tests
                     i++;
                 }
             });
-            
         }
     }
 }

@@ -8,17 +8,19 @@ namespace GoogleTest.Web.Forms
     {
         private readonly string _name;
         private readonly By _locator;
+        private readonly IWebDriver _driver;
 
-        protected BaseForm(By locator, string name)
+        protected BaseForm(By locator, string name, IWebDriver driver)
         {
             _locator = locator;
             _name = name;
+            _driver = driver;
             VerifyIsPresent();
         }
 
         private void VerifyIsPresent()
         {
-            BaseElement.WaitForElementPresent(_locator, "Form " + _name);
+            BaseElement.WaitForElementPresent(_locator, "Form " + _name, _driver);
             Console.WriteLine($"Form '{_name}' has appeared");
         }
     }
