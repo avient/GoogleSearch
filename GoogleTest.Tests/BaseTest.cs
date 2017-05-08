@@ -5,28 +5,22 @@ using OpenQA.Selenium;
 
 namespace GoogleTest.Tests
 {
-    [TestFixture]
-    public class BaseTest
+    public abstract class BaseTest
     {
-        private readonly IWebDriver _driver;
-
-        public BaseTest(out IWebDriver driver)
-        {
-            driver = new DriverFactory().GetDriver();
-            _driver = driver;
-        }
+        protected IWebDriver Driver;
 
         [SetUp]
         public void SetUp()
         {
-            _driver.Manage().Window.Maximize();
-            _driver.Navigate().GoToUrl(Configuration.GetBaseUrl());
+            Driver = new DriverFactory().GetDriver(Configuration.GetBrowser());
+            Driver.Manage().Window.Maximize();
+            Driver.Navigate().GoToUrl(Configuration.GetBaseUrl());
         }
 
         [TearDown]
         public void TearDown()
         {
-            _driver.Quit();
+            Driver.Quit();
         }
     }
 }

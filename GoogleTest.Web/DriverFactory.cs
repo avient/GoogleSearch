@@ -1,5 +1,4 @@
-﻿using GoogleTest.Infrastructure;
-using OpenQA.Selenium;
+﻿using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
 using OpenQA.Selenium.Firefox;
 
@@ -7,24 +6,15 @@ namespace GoogleTest.Web
 {
     public class DriverFactory
     {
-        private readonly IWebDriver _driver;
-
-        public DriverFactory()
+        public IWebDriver GetDriver(string browserName)
         {
-            switch (Configuration.GetBrowser())
+            switch (browserName)
             {
                 case "firefox":
-                    _driver = new FirefoxDriver();
-                    break;
+                    return new FirefoxDriver();
                 default:
-                    _driver = new ChromeDriver();
-                    break;
+                    return new ChromeDriver();
             }
-        }
-
-        public IWebDriver GetDriver()
-        {
-            return _driver;
         }
     }
 }
