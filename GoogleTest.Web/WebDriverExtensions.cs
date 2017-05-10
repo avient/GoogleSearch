@@ -19,5 +19,16 @@ namespace GoogleTest.Web
                 return result is bool && (bool) result;
             });
         }
+
+        public static void WaitForElementPresent(this IWebDriver driver, By locator, string name)
+        {
+            var wait = new WebDriverWait(driver,
+                TimeSpan.FromMilliseconds(Convert.ToDouble(Configuration.GetTimeout())));
+            wait.Until(waiting =>
+            {
+                var webElements = driver.FindElements(locator);
+                return webElements.Count != 0;
+            });
+        }
     }
 }

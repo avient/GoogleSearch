@@ -1,5 +1,4 @@
 ﻿using System;
-using GoogleTest.Web.Elements;
 using OpenQA.Selenium;
 
 namespace GoogleTest.Web.Forms
@@ -15,13 +14,12 @@ namespace GoogleTest.Web.Forms
             _locator = locator;
             _name = name;
             _driver = driver;
-            VerifyIsPresent();
         }
 
-        private void VerifyIsPresent()
+        public void VerifyIsOpened()
         {
-            BaseElement.WaitForElementPresent(_locator, "Form " + _name, _driver);
-            Console.WriteLine($"Form '{_name}' has appeared");
+            _driver.WaitForElementPresent(_locator, "Form " + _name);
+            Console.WriteLine($"Form '{_name}' is opened");
         }
     }
 }

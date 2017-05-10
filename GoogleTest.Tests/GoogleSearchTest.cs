@@ -13,6 +13,7 @@ namespace GoogleTest.Tests
         public void RunTest()
         {
             var gp = new GooglePage(Driver);
+            gp.VerifyIsOpened();
             gp.SearchFor(WordToSearch);
 
             var actualSearchResultsCount = gp.GetSearchResultsCount();

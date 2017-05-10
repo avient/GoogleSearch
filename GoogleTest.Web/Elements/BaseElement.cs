@@ -1,7 +1,5 @@
 ﻿using System;
-using GoogleTest.Infrastructure;
 using OpenQA.Selenium;
-using OpenQA.Selenium.Support.UI;
 
 namespace GoogleTest.Web.Elements
 {
@@ -26,20 +24,10 @@ namespace GoogleTest.Web.Elements
             return Element ?? (Element = Driver.FindElement(Locator));
         }
 
-        protected string GetName()
-        {
-            return Name;
-        }
-
-        protected By GetLocator()
-        {
-            return Locator;
-        }
-
         public void Click()
         {
             WaitForElementPresent();
-            Console.WriteLine($"Click element :: '{GetName()}'");
+            Console.WriteLine($"Click element :: '{Name}'");
             GetElement().Click();
         }
 
@@ -58,38 +46,7 @@ namespace GoogleTest.Web.Elements
 
         protected void WaitForElementPresent()
         {
-            var wait = new WebDriverWait(Driver,
-                TimeSpan.FromMilliseconds(Convert.ToDouble(Configuration.GetTimeout())));
-            try
-            {
-                wait.Until(waiting =>
-                {
-                    var webElements = Driver.FindElements(Locator);
-                    return webElements.Count != 0;
-                });
-            }
-            catch (TimeoutException)
-            {
-                Console.WriteLine($"Element with locator: '{Locator}' does not exists!");
-            }
-        }
-
-        public static void WaitForElementPresent(By locator, string name, IWebDriver driver)
-        {
-            var wait = new WebDriverWait(driver,
-                TimeSpan.FromMilliseconds(Convert.ToDouble(Configuration.GetTimeout())));
-            try
-            {
-                wait.Until(waiting =>
-                {
-                    var webElements = driver.FindElements(locator);
-                    return webElements.Count != 0;
-                });
-            }
-            catch (TimeoutException)
-            {
-                Console.WriteLine($"Element with locator: '{locator}' does not exists!");
-            }
+            Driver.WaitForElementPresent(Locator, Name);
         }
     }
 }

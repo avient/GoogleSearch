@@ -13,7 +13,7 @@ namespace GoogleTest.Web.Elements
         {
             WaitForElementPresent();
             GetElement().Click();
-            Console.WriteLine($"{GetName()} :: type text '{text}'");
+            Console.WriteLine($"{Name} :: type text '{text}'");
             GetElement().SendKeys(text);
         }
 
