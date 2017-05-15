@@ -8,6 +8,7 @@ namespace GoogleTest.Infrastructure
         private const string Timeout = "Timeout";
         private const string BaseUrl = "BaseUrl";
         private const string Browser = "Browser";
+        private const string TestDataSet = "TestDataSet";
 
 
         private static string GetParameterValue(string key)
@@ -28,6 +29,11 @@ namespace GoogleTest.Infrastructure
         public static string GetBrowser()
         {
             return GetParameterValue(Browser);
+        }
+
+        public static string GetTestDataSet()
+        {
+            return GetParameterValue(TestDataSet);
         }
     }
 }

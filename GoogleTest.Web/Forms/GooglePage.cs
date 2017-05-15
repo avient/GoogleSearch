@@ -36,14 +36,14 @@ namespace GoogleTest.Web.Forms
             TbxSearchField.SendKeys(Keys.Enter);
         }
 
-        public int GetSearchResultsCount()
+        public long GetSearchResultsCount()
         {
             var result = LblSearchResultsCount.GetText().Substring(0, LblSearchResultsCount.GetText().IndexOf('('));
             var sb = new StringBuilder();
             var stringQuery = result.Where(char.IsDigit);
             foreach (var c in stringQuery)
                 sb.Append(c);
-            return Convert.ToInt32(sb.ToString());
+            return Convert.ToInt64(sb.ToString());
         }
     }
 }

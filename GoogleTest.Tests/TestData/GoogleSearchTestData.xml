@@ -1,0 +1,7 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+
+<testData>
+  <test wordToSearch="microsoft" searchResultsCount="1000000000" />
+  <test wordToSearch="google" searchResultsCount="2000000000" />
+  <test wordToSearch="apple" searchResultsCount="3000000000" />
+</testData>

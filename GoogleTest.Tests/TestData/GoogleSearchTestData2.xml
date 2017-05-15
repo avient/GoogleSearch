@@ -1,0 +1,7 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+
+<testData>
+  <test wordToSearch="opera" searchResultsCount="100000000" />
+  <test wordToSearch="chrome" searchResultsCount="500000000" />
+  <test wordToSearch="firefox" searchResultsCount="900000000" />
+</testData>
