@@ -1,24 +1,26 @@
 ﻿using GoogleTest.Infrastructure;
 using GoogleTest.Web;
 using NUnit.Framework;
+using OpenQA.Selenium;
 
 namespace GoogleTest.Tests
 {
-    [TestFixture]
-    public class BaseTest
+    public abstract class BaseTest
     {
+        protected IWebDriver Driver;
+
         [SetUp]
         public void SetUp()
         {
-            var driver = WebDriverSingleton.Instance.GetDriver();
-            driver.Manage().Window.Maximize();
-            driver.Navigate().GoToUrl(Configuration.GetBaseUrl());
+            Driver = new DriverFactory().GetDriver(Configuration.GetBrowser());
+            Driver.Manage().Window.Maximize();
+            Driver.Navigate().GoToUrl(Configuration.GetBaseUrl());
         }
 
         [TearDown]
         public void TearDown()
         {
-            WebDriverSingleton.Instance.Reset();
+            Driver.Quit();
         }
     }
 }

@@ -1,50 +1,33 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using GoogleTest.Infrastructure;
 using OpenQA.Selenium;
-using OpenQA.Selenium.Support.UI;
 
 namespace GoogleTest.Web.Elements
 {
-    public class BaseElement
+    public abstract class BaseElement
     {
-        private readonly string _name;
-        private readonly By _locator;
-        private IWebElement _element;
+        protected readonly string Name;
+        protected readonly By Locator;
+        protected IWebElement Element;
+        protected readonly IWebDriver Driver;
 
-        protected BaseElement(By locator, string name)
+
+        protected BaseElement(By locator, string name, IWebDriver driver)
         {
-            this._name = name;
-            this._locator = locator;
+            Name = name;
+            Locator = locator;
+            Driver = driver;
         }
 
         protected IWebElement GetElement()
         {
             WaitForElementPresent();
-            return _element ?? (_element = WebDriverSingleton.Instance.GetDriver().FindElement(_locator));
-        }
-
-        public List<BaseElement> GetAllElements()
-        {
-            var allElements = WebDriverSingleton.Instance.GetDriver().FindElements(_locator);
-            return allElements.Select((t, i) => new BaseElement(_locator, _name + i) {_element = t}).ToList();
-        }
-
-        protected string GetName()
-        {
-            return _name;
-        }
-
-        protected By GetLocator()
-        {
-            return _locator;
+            return Element ?? (Element = Driver.FindElement(Locator));
         }
 
         public void Click()
         {
             WaitForElementPresent();
-            Console.WriteLine($"Click element :: '{GetName()}'");
+            Console.WriteLine($"Click element :: '{Name}'");
             GetElement().Click();
         }
 
@@ -52,7 +35,7 @@ namespace GoogleTest.Web.Elements
         {
             WaitForElementPresent();
             GetElement().SendKeys(key);
-            WebDriverSingleton.Instance.GetDriver().WaitForPageToLoad();
+            Driver.WaitForPageToLoad();
         }
 
         public string GetText()
@@ -63,38 +46,7 @@ namespace GoogleTest.Web.Elements
 
         protected void WaitForElementPresent()
         {
-            var wait = new WebDriverWait(WebDriverSingleton.Instance.GetDriver(),
-                TimeSpan.FromMilliseconds(Convert.ToDouble(Configuration.GetTimeout())));
-            try
-            {
-                wait.Until(waiting =>
-                {
-                    var webElements = WebDriverSingleton.Instance.GetDriver().FindElements(_locator);
-                    return webElements.Count != 0;
-                });
-            }
-            catch (TimeoutException)
-            {
-                Console.WriteLine($"Element with locator: '{_locator}' does not exists!");
-            }
-        }
-
-        public static void WaitForElementPresent(By locator, string name)
-        {
-            var wait = new WebDriverWait(WebDriverSingleton.Instance.GetDriver(),
-                TimeSpan.FromMilliseconds(Convert.ToDouble(Configuration.GetTimeout())));
-            try
-            {
-                wait.Until(waiting =>
-                {
-                    var webElements = WebDriverSingleton.Instance.GetDriver().FindElements(locator);
-                    return webElements.Count != 0;
-                });
-            }
-            catch (TimeoutException)
-            {
-                Console.WriteLine($"Element with locator: '{locator}' does not exists!");
-            }
+            Driver.WaitForElementPresent(Locator, Name);
         }
     }
 }

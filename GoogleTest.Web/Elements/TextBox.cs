@@ -5,7 +5,7 @@ namespace GoogleTest.Web.Elements
 {
     public class TextBox : BaseElement
     {
-        public TextBox(By locator, string name) : base(locator, name)
+        public TextBox(By locator, string name, IWebDriver driver) : base(locator, name, driver)
         {
         }
 
@@ -13,7 +13,7 @@ namespace GoogleTest.Web.Elements
         {
             WaitForElementPresent();
             GetElement().Click();
-            Console.WriteLine($"{GetName()} :: type text '{text}'");
+            Console.WriteLine($"{Name} :: type text '{text}'");
             GetElement().SendKeys(text);
         }
 

@@ -13,7 +13,8 @@ namespace GoogleTest.Tests
         [Test, TestCaseSource(nameof(GetGoogleSearchTestData))]
         public void SearchAndAssertSearchCountTest(string wordToSearch, long searchResultsCount)
         {
-            var gp = new GooglePage();
+            var gp = new GooglePage(Driver);
+            gp.VerifyIsOpened();
             gp.SearchFor(wordToSearch);
 
             var actualSearchResultsCount = gp.GetSearchResultsCount();
@@ -38,7 +39,8 @@ namespace GoogleTest.Tests
         private static IEnumerable<object[]> GetGoogleSearchTestData()
         {
             var xmlDoc = new XmlDocument();
-            xmlDoc.Load(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "TestData", Configuration.GetTestDataSet()));
+            xmlDoc.Load(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "TestData",
+                Configuration.GetTestDataSet()));
             var xmlRoot = xmlDoc.DocumentElement;
 
             if (xmlRoot == null) yield break;
