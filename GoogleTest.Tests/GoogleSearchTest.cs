@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Xml;
 using GoogleTest.Infrastructure;
 using GoogleTest.Web.Forms;
@@ -9,8 +10,8 @@ namespace GoogleTest.Tests
 {
     public class GoogleSearchTest : BaseTest
     {
-        [Test, TestCaseSource(nameof(GetTestData))]
-        public void RunTest(string wordToSearch, long searchResultsCount)
+        [Test, TestCaseSource(nameof(GetGoogleSearchTestData))]
+        public void SearchAndAssertSearchCountTest(string wordToSearch, long searchResultsCount)
         {
             var gp = new GooglePage();
             gp.SearchFor(wordToSearch);
@@ -34,10 +35,10 @@ namespace GoogleTest.Tests
             });
         }
 
-        private static IEnumerable<object[]> GetTestData()
+        private static IEnumerable<object[]> GetGoogleSearchTestData()
         {
             var xmlDoc = new XmlDocument();
-            xmlDoc.Load(AppDomain.CurrentDomain.BaseDirectory + "..\\..\\TestData\\" + Configuration.GetTestDataSet());
+            xmlDoc.Load(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "TestData", Configuration.GetTestDataSet()));
             var xmlRoot = xmlDoc.DocumentElement;
 
             if (xmlRoot == null) yield break;
